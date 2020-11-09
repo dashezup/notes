@@ -1,0 +1,90 @@
+#+STARTUP: content
+* Self-hosting
+  :PROPERTIES:
+  :CUSTOM_ID: self-host
+  :END:
+** HTTP server
+   :PROPERTIES:
+   :CUSTOM_ID: http-server
+   :END:
+   #+BEGIN_SRC sh
+     # install docker
+     xi docker docker-compose
+   #+END_SRC
+** Git
+   :PROPERTIES:
+   :CUSTOM_ID: git
+   :END:
+*** [[https://git-scm.com/book/en/v2/Git-on-the-Server-Git-Daemon][Git Daemon]]
+    :PROPERTIES:
+    :CUSTOM_ID: git-daemon
+    :END:
+    #+BEGIN_SRC sh
+      #!/bin/sh
+      # /etc/sv/git-daemon/run
+      exec chpst -u username:username git daemon \
+	   --reuseaddr \
+	   --base-path=/home/username/git/repo \
+	   /home/username/git/repo
+    #+END_SRC
+*** [[https://git-scm.com/book/en/v2/Git-on-the-Server-Getting-Git-on-a-Server][Bare repository]]
+    :PROPERTIES:
+    :CUSTOM_ID: bare-repo
+    :END:
+    #+BEGIN_SRC sh
+      cd $HOME/git/repo
+      mkdir reponame.git && cd $_
+      git init --bare --shared=group
+      touch git-daemon-export-ok
+      vim decription owner url
+      # change denyNonFastforwards to false
+      vim config
+    #+END_SRC
+*** Static Git Page
+    :PROPERTIES:
+    :CUSTOM_ID: static-git-page
+    :END:
+    Install ~stagit~ and add ~repo/.git/hooks/post-receive~
+** WebDAV
+   :PROPERTIES:
+   :CUSTOM_ID: webdav
+   :END:
+   #+BEGIN_SRC sh
+     #!/bin/sh
+     # /etc/sv/rclone-webdav/run
+     exec rclone serve webdav \
+	  --addr domain.tld:1234 \
+	  --user username \
+	  --pass password \
+	  --cert /etc/letsencrypt/live/domain.tld/fullchain.pem \
+	  --key /etc/letsencrypt/live/domain.tld/privkey.pem \
+	  /home/username/webdav 2>&1
+   #+END_SRC
+** Pastebin
+   :PROPERTIES:
+   :CUSTOM_ID: pastebin
+   :END:
+   */etc/sv/fiche/run*
+   #+BEGIN_SRC sh
+     #!/bin/sh
+     exec chpst -u _fiche:_fiche fiche \
+	  -S -d domain.tld/pastebin \
+	  -o /var/tmp/fiche \
+	  -l /var/log/fiche/log
+   #+END_SRC
+** Other
+   :PROPERTIES:
+   :CUSTOM_ID: other-self-hosting
+   :END:
+*** IRC network bouncer
+    znc
+*** Music radio
+    #+BEGIN_SRC sh
+      #!/bin/sh
+      # /etc/sv/vlc-stream/run
+      exec chpst -u username:username cvlc \
+	   /home/username/music \
+	   ':sout=#http{mux=ogg,dst=:12345/}' ':no-sout-all' ':sout-keep' \
+	   --intf \
+	   http 1>/dev/null
+    #+END_SRC

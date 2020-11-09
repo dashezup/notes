@@ -1,0 +1,4 @@
+*~
+
+*.html
+!/.web/index.html

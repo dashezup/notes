@@ -1,0 +1,11 @@
+#+STARTUP: content
+#+TITLE: Notes by Dash Eclipse
+#+AUTHOR: Dash Eclipse
+#+EMAIL: dash@ezup.dev
+#+LANGUAGE: en
+#+EXPORT_FILE_NAME: .web/index.html
+
+#+SETUPFILE: org-html-themes/setup/theme-readtheorg-local.setup
+
+#+INCLUDE: "self-hosting.org"
+#+INCLUDE: "browser.org"

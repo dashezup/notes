@@ -1,0 +1,17 @@
+#+STARTUP: content
+* Browser
+  :PROPERTIES:
+  :CUSTOM_ID: browser
+  :END:
+  It's possible to run your own [[https://mozilla-services.readthedocs.io/en/latest/howtos/run-sync-1.5.html][Sync Server]] and [[https://mozilla-services.readthedocs.io/en/latest/howtos/run-fxa.html][Firefox Accounts Server]] for your Firefox, it's the main reason I choose Firefox over Chromium
+** Extensions
+   :PROPERTIES:
+   :CUSTOM_ID: browser-extensions
+   :END:
+   - uBlock Origin
+   - uMatrix
+   - Multi-Account Containers
+   - Vimium
+   - HTTPS Everywhere
+   - Privacy Badger
+   - Decentraleyes
