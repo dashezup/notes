@@ -3,7 +3,7 @@
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<!-- 2020-11-09 Mon 15:22 -->
+<!-- 2020-11-09 Mon 21:37 -->
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Notes by Dash Eclipse</title>
@@ -229,41 +229,51 @@
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#self-host">1. Self-hosting</a>
+<li><a href="#server">1. Server</a>
 <ul>
-<li><a href="#http-server">1.1. HTTP server</a></li>
-<li><a href="#git">1.2. Git</a>
+<li><a href="#server_http">1.1. HTTP (nginx)</a></li>
+<li><a href="#server_git">1.2. Git</a>
 <ul>
-<li><a href="#git-daemon">1.2.1. Git Daemon</a></li>
-<li><a href="#bare-repo">1.2.2. Bare repository</a></li>
-<li><a href="#static-git-page">1.2.3. Static Git Page</a></li>
+<li><a href="#server_git_daemon">1.2.1. Git Daemon</a></li>
+<li><a href="#server_git_bare-repo">1.2.2. Bare Repository</a></li>
+<li><a href="#server_git_static-git-page">1.2.3. Static Git Page</a></li>
 </ul>
 </li>
-<li><a href="#webdav">1.3. WebDAV</a></li>
-<li><a href="#pastebin">1.4. Pastebin</a></li>
-<li><a href="#other-self-hosting">1.5. Other</a>
+<li><a href="#server_webdav">1.3. WebDAV (rclone)</a></li>
+<li><a href="#server_pastebin">1.4. Pastebin (fiche)</a></li>
+<li><a href="#server_irc">1.5. IRC Network Bouncer (znc)</a></li>
+<li><a href="#server_music-radio">1.6. Music Radio (vlc)</a></li>
+</ul>
+</li>
+<li><a href="#desktop">2. Desktop</a>
 <ul>
-<li><a href="#org2a5e604">1.5.1. IRC network bouncer</a></li>
-<li><a href="#orge917a65">1.5.2. Music radio</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#browser">2. Browser</a>
+<li><a href="#desktop_shell-zsh">2.1. Shell (zsh)</a></li>
+<li><a href="#desktop_xorg">2.2. Xorg</a>
 <ul>
-<li><a href="#browser-extensions">2.1. Extensions</a></li>
+<li><a href="#desktop_xorg_keyboard">2.2.1. Keyboard</a></li>
+<li><a href="#desktop_xorg_mouse">2.2.2. Mouse</a></li>
+<li><a href="#desktop_xorg_monitors">2.2.3. Monitors</a></li>
 </ul>
 </li>
+<li><a href="#desktop_automatic-login">2.3. Automatic Login</a></li>
+</ul>
+</li>
+<li><a href="#browser">3. Browser</a>
+<ul>
+<li><a href="#browser-extensions">3.1. Extensions</a></li>
+</ul>
+</li>
+<li><a href="#movie">4. Movies</a></li>
 </ul>
 </div>
 </div>
-<div id="outline-container-self-host" class="outline-2">
-<h2 id="self-host"><span class="section-number-2">1</span> Self-hosting</h2>
-<div class="outline-text-2" id="text-self-host">
+<div id="outline-container-server" class="outline-2">
+<h2 id="server"><span class="section-number-2">1</span> Server</h2>
+<div class="outline-text-2" id="text-server">
 </div>
-<div id="outline-container-http-server" class="outline-3">
-<h3 id="http-server"><span class="section-number-3">1.1</span> HTTP server</h3>
-<div class="outline-text-3" id="text-http-server">
+<div id="outline-container-server_http" class="outline-3">
+<h3 id="server_http"><span class="section-number-3">1.1</span> HTTP (nginx)</h3>
+<div class="outline-text-3" id="text-server_http">
 <div class="org-src-container">
 <pre class="src src-sh"><span style="color: #616e88;"># </span><span style="color: #616e88;">install docker</span>
 xi docker docker-compose
@@ -271,13 +281,13 @@ xi docker docker-compose
 </div>
 </div>
 </div>
-<div id="outline-container-git" class="outline-3">
-<h3 id="git"><span class="section-number-3">1.2</span> Git</h3>
-<div class="outline-text-3" id="text-git">
+<div id="outline-container-server_git" class="outline-3">
+<h3 id="server_git"><span class="section-number-3">1.2</span> Git</h3>
+<div class="outline-text-3" id="text-server_git">
 </div>
-<div id="outline-container-git-daemon" class="outline-4">
-<h4 id="git-daemon"><span class="section-number-4">1.2.1</span> <a href="https://git-scm.com/book/en/v2/Git-on-the-Server-Git-Daemon">Git Daemon</a></h4>
-<div class="outline-text-4" id="text-git-daemon">
+<div id="outline-container-server_git_daemon" class="outline-4">
+<h4 id="server_git_daemon"><span class="section-number-4">1.2.1</span> <a href="https://git-scm.com/book/en/v2/Git-on-the-Server-Git-Daemon">Git Daemon</a></h4>
+<div class="outline-text-4" id="text-server_git_daemon">
 <div class="org-src-container">
 <pre class="src src-sh"><span style="color: #616e88;">#</span><span style="color: #616e88;">!/bin/</span><span style="color: #81A1C1;">sh</span>
 <span style="color: #616e88;"># </span><span style="color: #616e88;">/etc/sv/git-daemon/run</span>
@@ -289,9 +299,9 @@ xi docker docker-compose
 </div>
 </div>
 </div>
-<div id="outline-container-bare-repo" class="outline-4">
-<h4 id="bare-repo"><span class="section-number-4">1.2.2</span> <a href="https://git-scm.com/book/en/v2/Git-on-the-Server-Getting-Git-on-a-Server">Bare repository</a></h4>
-<div class="outline-text-4" id="text-bare-repo">
+<div id="outline-container-server_git_bare-repo" class="outline-4">
+<h4 id="server_git_bare-repo"><span class="section-number-4">1.2.2</span> <a href="https://git-scm.com/book/en/v2/Git-on-the-Server-Getting-Git-on-a-Server">Bare Repository</a></h4>
+<div class="outline-text-4" id="text-server_git_bare-repo">
 <div class="org-src-container">
 <pre class="src src-sh"><span style="color: #81A1C1;">cd</span> $<span style="color: #D8DEE9;">HOME</span>/git/repo
 mkdir reponame.git &amp;&amp; <span style="color: #81A1C1;">cd</span> $<span style="color: #D8DEE9;">_</span>
@@ -304,18 +314,18 @@ vim config
 </div>
 </div>
 </div>
-<div id="outline-container-static-git-page" class="outline-4">
-<h4 id="static-git-page"><span class="section-number-4">1.2.3</span> Static Git Page</h4>
-<div class="outline-text-4" id="text-static-git-page">
+<div id="outline-container-server_git_static-git-page" class="outline-4">
+<h4 id="server_git_static-git-page"><span class="section-number-4">1.2.3</span> Static Git Page</h4>
+<div class="outline-text-4" id="text-server_git_static-git-page">
 <p>
 Install <code>stagit</code> and add <code>repo/.git/hooks/post-receive</code>
 </p>
 </div>
 </div>
 </div>
-<div id="outline-container-webdav" class="outline-3">
-<h3 id="webdav"><span class="section-number-3">1.3</span> WebDAV</h3>
-<div class="outline-text-3" id="text-webdav">
+<div id="outline-container-server_webdav" class="outline-3">
+<h3 id="server_webdav"><span class="section-number-3">1.3</span> WebDAV (rclone)</h3>
+<div class="outline-text-3" id="text-server_webdav">
 <div class="org-src-container">
 <pre class="src src-sh"><span style="color: #616e88;">#</span><span style="color: #616e88;">!/bin/</span><span style="color: #81A1C1;">sh</span>
 <span style="color: #616e88;"># </span><span style="color: #616e88;">/etc/sv/rclone-webdav/run</span>
@@ -330,9 +340,9 @@ Install <code>stagit</code> and add <code>repo/.git/hooks/post-receive</code>
 </div>
 </div>
 </div>
-<div id="outline-container-pastebin" class="outline-3">
-<h3 id="pastebin"><span class="section-number-3">1.4</span> Pastebin</h3>
-<div class="outline-text-3" id="text-pastebin">
+<div id="outline-container-server_pastebin" class="outline-3">
+<h3 id="server_pastebin"><span class="section-number-3">1.4</span> Pastebin (fiche)</h3>
+<div class="outline-text-3" id="text-server_pastebin">
 <p>
 <b>/etc/sv/fiche/run</b>
 </p>
@@ -346,25 +356,23 @@ Install <code>stagit</code> and add <code>repo/.git/hooks/post-receive</code>
 </div>
 </div>
 </div>
-<div id="outline-container-other-self-hosting" class="outline-3">
-<h3 id="other-self-hosting"><span class="section-number-3">1.5</span> Other</h3>
-<div class="outline-text-3" id="text-other-self-hosting">
-</div>
-<div id="outline-container-org2a5e604" class="outline-4">
-<h4 id="org2a5e604"><span class="section-number-4">1.5.1</span> IRC network bouncer</h4>
-<div class="outline-text-4" id="text-1-5-1">
+<div id="outline-container-server_irc" class="outline-3">
+<h3 id="server_irc"><span class="section-number-3">1.5</span> IRC Network Bouncer (znc)</h3>
+<div class="outline-text-3" id="text-server_irc">
 <p>
-znc
+<code>znc</code>
 </p>
 </div>
 </div>
-<div id="outline-container-orge917a65" class="outline-4">
-<h4 id="orge917a65"><span class="section-number-4">1.5.2</span> Music radio</h4>
-<div class="outline-text-4" id="text-1-5-2">
+<div id="outline-container-server_music-radio" class="outline-3">
+<h3 id="server_music-radio"><span class="section-number-3">1.6</span> Music Radio (vlc)</h3>
+<div class="outline-text-3" id="text-server_music-radio">
+<p>
+<b>/etc/sv/vlc-stream/run</b>
+</p>
 <div class="org-src-container">
 <pre class="src src-sh"><span style="color: #616e88;">#</span><span style="color: #616e88;">!/bin/</span><span style="color: #81A1C1;">sh</span>
-<span style="color: #616e88;"># </span><span style="color: #616e88;">/etc/sv/vlc-stream/run</span>
-<span style="color: #81A1C1;">exec</span> chpst -u username:username cvlc <span style="color: #A3BE8C;">\</span>
+ <span style="color: #81A1C1;">exec</span> chpst -u username:username cvlc <span style="color: #A3BE8C;">\</span>
      /home/username/music <span style="color: #A3BE8C;">\</span>
      <span style="color: #A3BE8C;">':sout=#http{mux=ogg,dst=:12345/}'</span> <span style="color: #A3BE8C;">':no-sout-all'</span> <span style="color: #A3BE8C;">':sout-keep'</span> <span style="color: #A3BE8C;">\</span>
      --intf <span style="color: #A3BE8C;">\</span>
@@ -374,16 +382,229 @@ znc
 </div>
 </div>
 </div>
+<div id="outline-container-desktop" class="outline-2">
+<h2 id="desktop"><span class="section-number-2">2</span> Desktop</h2>
+<div class="outline-text-2" id="text-desktop">
+</div>
+<div id="outline-container-desktop_shell-zsh" class="outline-3">
+<h3 id="desktop_shell-zsh"><span class="section-number-3">2.1</span> Shell (zsh)</h3>
+<div class="outline-text-3" id="text-desktop_shell-zsh">
+<ul class="org-ul">
+<li>zsh</li>
+<li>grml-zsh-config</li>
+<li>zsh-autosuggestions</li>
+<li>zsh-completion</li>
+<li>zsh-syntax-highlighting</li>
+<li>skim-key-bindings.zsh</li>
+<li>powerlevel10k</li>
+</ul>
+<p>
+<b>Plugins</b>
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #616e88;"># </span><span style="color: #616e88;">$HOME/.zshrc.local</span>
+
+. /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+. /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+. /usr/share/zsh/site-functions/skim-key-bindings.zsh
+
+<span style="color: #81A1C1;">if</span> [ <span style="color: #81A1C1;">!</span> -z ${<span style="color: #D8DEE9;">DISPLAY</span>+x} ] ; <span style="color: #81A1C1;">then</span>
+        . /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+        . $<span style="color: #D8DEE9;">HOME</span>/.p10k.zsh
+        <span style="color: #D8DEE9;">POWERLEVEL9K_LEFT_PROMPT_ELEMENTS</span>=(dir rbenv vcs)
+        <span style="color: #D8DEE9;">ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE</span>=<span style="color: #A3BE8C;">'fg=240'</span>
+        <span style="color: #616e88;">#</span><span style="color: #616e88;">ZSH_HIGHLIGHT_STYLES[suffix-alias]='fg=blue,underline'</span>
+        <span style="color: #616e88;">#</span><span style="color: #616e88;">ZSH_HIGHLIGHT_STYLES[precommand]='fg=blue,underline'</span>
+        <span style="color: #616e88;">#</span><span style="color: #616e88;">ZSH_HIGHLIGHT_STYLES[arg0]='fg=blue'</span>
+        <span style="color: #616e88;">#</span><span style="color: #616e88;">ZSH_HIGHLIGHT_STYLES[comment]='fg=239'</span>
+        <span style="color: #D8DEE9;">ZSH_HIGHLIGHT_STYLES</span>[suffix-alias]=<span style="color: #D8DEE9;">fg</span>=32,underline
+        <span style="color: #D8DEE9;">ZSH_HIGHLIGHT_STYLES</span>[precommand]=<span style="color: #D8DEE9;">fg</span>=32,underline
+        <span style="color: #D8DEE9;">ZSH_HIGHLIGHT_STYLES</span>[arg0]=<span style="color: #D8DEE9;">fg</span>=32 <span style="color: #616e88;"># </span><span style="color: #616e88;">26</span>
+        <span style="color: #D8DEE9;">ZSH_HIGHLIGHT_STYLES</span>[single-hyphen-option]=<span style="color: #A3BE8C;">'fg=38'</span>
+        <span style="color: #D8DEE9;">ZSH_HIGHLIGHT_STYLES</span>[double-hyphen-option]=<span style="color: #A3BE8C;">'fg=38'</span>
+        <span style="color: #D8DEE9;">ZSH_HIGHLIGHT_STYLES</span>[default]=<span style="color: #A3BE8C;">'fg=38'</span>
+        <span style="color: #D8DEE9;">ZSH_HIGHLIGHT_STYLES</span>[single-quoted-argument-unclosed]=<span style="color: #A3BE8C;">'fg=red'</span>
+        <span style="color: #D8DEE9;">ZSH_HIGHLIGHT_STYLES</span>[double-quoted-argument-unclosed]=<span style="color: #A3BE8C;">'fg=red'</span>
+<span style="color: #81A1C1;">fi</span>
+</pre>
+</div>
+<p>
+<b>Functions</b>
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #616e88;"># </span><span style="color: #616e88;">$HOME/.zsh.local</span>
+<span style="color: #616e88;"># </span><span style="color: #616e88;">wordnet</span>
+<span style="color: #88C0D0;">wn</span>() { <span style="color: #81A1C1;">while </span><span style="color: #81A1C1;">true</span>; <span style="color: #81A1C1;">do</span> dict -d wn $(<span style="color: #81A1C1;">read</span> -e); <span style="color: #81A1C1;">done</span> }
+<span style="color: #616e88;"># </span><span style="color: #616e88;">memory usage</span>
+<span style="color: #88C0D0;">memu</span>() {
+        <span style="color: #81A1C1;">local</span> <span style="color: #D8DEE9;">CHECK</span>=<span style="color: #A3BE8C;">" $@"</span>
+        [ -z $<span style="color: #D8DEE9;">1</span> ] || [ <span style="color: #A3BE8C;">"${CHECK#* -}"</span> != <span style="color: #A3BE8C;">"$CHECK"</span> ] &amp;&amp; { <span style="color: #81A1C1;">echo</span> <span style="color: #A3BE8C;">"Usage: memu program [program...]"</span>; <span style="color: #81A1C1;">return</span> 1; }
+        <span style="color: #81A1C1;">local</span> <span style="color: #D8DEE9;">PIDS</span>=$(pidof <span style="color: #A3BE8C;">"$@"</span>)
+        test -z <span style="color: #A3BE8C;">"$PIDS"</span> &amp;&amp; <span style="color: #81A1C1;">return</span> 0
+        <span style="color: #81A1C1;">echo</span> <span style="color: #A3BE8C;">"$PIDS"</span> <span style="color: #A3BE8C;">\</span>
+                | xargs -I{} ps -p <span style="color: #A3BE8C;">"{}"</span> -o size,vsize,rss,cmd <span style="color: #A3BE8C;">\</span>
+                | awk <span style="color: #A3BE8C;">'NR==1; NR&gt;1 {print $1"K", $2"Ki", $3"K", $4}'</span> <span style="color: #A3BE8C;">\</span>
+                | numfmt --header --field 1,3 --from=si --to=si --suffix=B --format %.1f <span style="color: #A3BE8C;">\</span>
+                | numfmt --header --field 2 --from=iec-i --to=iec-i --suffix=B --format %.1f <span style="color: #A3BE8C;">\</span>
+                | sort -hk3,3 <span style="color: #A3BE8C;">\</span>
+                | column -t -R1,2,3 <span style="color: #A3BE8C;">\</span>
+                | <span style="color: #D8DEE9;">GREP_COLORS</span>=<span style="color: #A3BE8C;">'mt=1;94'</span> egrep --color=always <span style="color: #A3BE8C;">'.*SIZE.*VSZ.*RSS.*CMD.*|$'</span> <span style="color: #A3BE8C;">\</span>
+                | <span style="color: #D8DEE9;">GREP_COLORS</span>=<span style="color: #A3BE8C;">'mt=1;32'</span> egrep --color=always <span style="color: #A3BE8C;">"KB|KiB|$"</span> <span style="color: #A3BE8C;">\</span>
+                | <span style="color: #D8DEE9;">GREP_COLORS</span>=<span style="color: #A3BE8C;">'mt=0;33'</span> egrep --color=always <span style="color: #A3BE8C;">'MB|MiB|$'</span> <span style="color: #A3BE8C;">\</span>
+                | <span style="color: #D8DEE9;">GREP_COLORS</span>=<span style="color: #A3BE8C;">'mt=1;31'</span> egrep --color=always <span style="color: #A3BE8C;">"GB|GiB|$"</span>
+}
+</pre>
+</div>
+<p>
+<b>Environment variables</b>
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #616e88;"># </span><span style="color: #616e88;">$HOME/.zshenv</span>
+<span style="color: #616e88;"># </span><span style="color: #616e88;">http://zsh.sourceforge.net/Guide/zshguide02.html#l24</span>
+<span style="color: #81A1C1;">typeset</span> -U path
+<span style="color: #D8DEE9;">path</span>=(~/.local/bin $<span style="color: #D8DEE9;">path</span>)
+<span style="color: #D8DEE9;">SRC_GITHUB</span>=<span style="color: #A3BE8C;">"$HOME/.local/src/github"</span>
+<span style="color: #D8DEE9;">PROXYCHAINS_QUIET_MODE</span>=1
+<span style="color: #D8DEE9;">CLICOLOR_FORCE</span>=1
+<span style="color: #81A1C1;">export</span> <span style="color: #D8DEE9;">GPG_TTY</span>=$(tty)
+</pre>
+</div>
+</div>
+</div>
+<div id="outline-container-desktop_xorg" class="outline-3">
+<h3 id="desktop_xorg"><span class="section-number-3">2.2</span> Xorg</h3>
+<div class="outline-text-3" id="text-desktop_xorg">
+<ul class="org-ul">
+<li>xorg-server</li>
+<li>xf86-input-libinput</li>
+<li>xf86-video-intel</li>
+<li>sx</li>
+<li>dwm</li>
+<li>slock</li>
+<li>st</li>
+</ul>
+
+<p>
+non-root Xorg
+</p>
+<pre class="example" id="org9f87be4">
+# /etc/X11/Xwrapper.config
+needs_root_rights = no
+</pre>
+</div>
+<div id="outline-container-desktop_xorg_keyboard" class="outline-4">
+<h4 id="desktop_xorg_keyboard"><span class="section-number-4">2.2.1</span> Keyboard</h4>
+<div class="outline-text-4" id="text-desktop_xorg_keyboard">
+<p>
+Programmer Dvorak keyboard layout
+</p>
+<pre class="example" id="orgc6e68b6">
+# /etc/X11/xorg.conf.d/00-keyboard.conf
+Section "InputClass"
+        Identifier "Cherry GmbH G83 (RS 6000) Keyboard"
+        MatchIsKeyboard "on"
+        MatchUSBID "046a:0011"
+        Driver "libinput"
+        Option "XkbLayout" "us"
+        Option "XkbModel" "pc104"
+        Option "XkbVariant" "dvp"
+EndSection
+</pre>
+</div>
+</div>
+<div id="outline-container-desktop_xorg_mouse" class="outline-4">
+<h4 id="desktop_xorg_mouse"><span class="section-number-4">2.2.2</span> Mouse</h4>
+<div class="outline-text-4" id="text-desktop_xorg_mouse">
+<p>
+Left-handed mouse
+</p>
+<pre class="example" id="org38a2fec">
+# /etc/X11/xorg.conf.d/50-mouse.conf
+Section "InputClass"
+        Identifier "Pixart Imaging, Inc. Optical Mouse"
+        MatchIsPointer "yes"
+        MatchUSBID "093a:2510"
+        Driver "libinput"
+        Option "ButtonMapping" "3 2 1"
+EndSection
+</pre>
+</div>
+</div>
+<div id="outline-container-desktop_xorg_monitors" class="outline-4">
+<h4 id="desktop_xorg_monitors"><span class="section-number-4">2.2.3</span> Monitors</h4>
+<div class="outline-text-4" id="text-desktop_xorg_monitors">
+<p>
+Dual-monitor
+</p>
+<pre class="example" id="org61d8898">
+# /etc/X11/xorg.conf.d/10-monitor.conf
+Section "Monitor"
+        Identifier	"VGA1"
+        Option		"Primary" "true"
+        Option		"PreferredMode" "1440x900"
+        Option		"Position" "0 1020"
+EndSection
+
+Section "Monitor"
+        Identifier	"HDMI1"
+        Option		"RightOf" "VGA1"
+        Option		"PreferredMode" "1920x1080"
+        Option		"Position" "1440 0"
+        Option		"Rotate" "right"
+        Option		"DPMS" "true"
+        Option		"StandbyTime" "60"
+        Option		"SuspendTime" "120"
+        Option		"OffTime" "180"
+EndSection
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-desktop_automatic-login" class="outline-3">
+<h3 id="desktop_automatic-login"><span class="section-number-3">2.3</span> Automatic Login</h3>
+<div class="outline-text-3" id="text-desktop_automatic-login">
+<p>
+<code>ln -s /etc/sv/agetty-autologin-tty1 /var/service/agetty-tty1</code>
+</p>
+
+<p>
+<b>/etc/sv/agetty-autologin-tty1/conf</b>
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #81A1C1;">if</span> [ -x /sbin/agetty -o -x /bin/agetty ]; <span style="color: #81A1C1;">then</span>
+        <span style="color: #616e88;"># </span><span style="color: #616e88;">util-linux specific settings</span>
+        <span style="color: #81A1C1;">if</span> [ <span style="color: #A3BE8C;">"${tty}"</span> = <span style="color: #A3BE8C;">"tty1"</span> ]; <span style="color: #81A1C1;">then</span>
+                <span style="color: #D8DEE9;">GETTY_ARGS</span>=<span style="color: #A3BE8C;">"--autologin username --noclear"</span>
+        <span style="color: #81A1C1;">fi</span>
+<span style="color: #81A1C1;">fi</span>
+
+<span style="color: #D8DEE9;">BAUD_RATE</span>=38400
+<span style="color: #D8DEE9;">TERM_NAME</span>=linux
+</pre>
+</div>
+
+<p>
+<b>$HOME/.zprofile</b>
+</p>
+<div class="org-src-container">
+<pre class="src src-sh"><span style="color: #81A1C1;">if</span> [ -z <span style="color: #A3BE8C;">"$DISPLAY"</span> ] &amp;&amp; [ <span style="color: #A3BE8C;">"$(fgconsole)"</span> -eq 1 ]; <span style="color: #81A1C1;">then</span>
+        sx ~/.config/sx/sxrc dwm
+<span style="color: #81A1C1;">fi</span>
+</pre>
+</div>
+</div>
+</div>
 </div>
 <div id="outline-container-browser" class="outline-2">
-<h2 id="browser"><span class="section-number-2">2</span> Browser</h2>
+<h2 id="browser"><span class="section-number-2">3</span> Browser</h2>
 <div class="outline-text-2" id="text-browser">
 <p>
 It's possible to run your own <a href="https://mozilla-services.readthedocs.io/en/latest/howtos/run-sync-1.5.html">Sync Server</a> and <a href="https://mozilla-services.readthedocs.io/en/latest/howtos/run-fxa.html">Firefox Accounts Server</a> for your Firefox, it's the main reason I choose Firefox over Chromium
 </p>
 </div>
 <div id="outline-container-browser-extensions" class="outline-3">
-<h3 id="browser-extensions"><span class="section-number-3">2.1</span> Extensions</h3>
+<h3 id="browser-extensions"><span class="section-number-3">3.1</span> Extensions</h3>
 <div class="outline-text-3" id="text-browser-extensions">
 <ul class="org-ul">
 <li>uBlock Origin</li>
@@ -397,10 +618,64 @@ It's possible to run your own <a href="https://mozilla-services.readthedocs.io/e
 </div>
 </div>
 </div>
+<div id="outline-container-movie" class="outline-2">
+<h2 id="movie"><span class="section-number-2">4</span> Movies</h2>
+<div class="outline-text-2" id="text-movie">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-left" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-left">Name</th>
+<th scope="col" class="org-left">Country</th>
+<th scope="col" class="org-right">Release</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-left"><a href="https://www.imdb.com/title/tt5165468/">Schnick Schnack Schnuck</a></td>
+<td class="org-left">DE</td>
+<td class="org-right">2015</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://www.imdb.com/title/tt0226259/">Female Teacher: In Front of the Students</a></td>
+<td class="org-left">JP</td>
+<td class="org-right">1982</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://www.imdb.com/title/tt0188503/">The Quiet Family</a></td>
+<td class="org-left">KR</td>
+<td class="org-right">1998</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://www.imdb.com/title/tt4392454/">13 Cameras</a></td>
+<td class="org-left">US</td>
+<td class="org-right">2015</td>
+</tr>
+
+<tr>
+<td class="org-left"><a href="https://www.imdb.com/title/tt6927316/">Human, Space, Time and Human</a></td>
+<td class="org-left">KR</td>
+<td class="org-right">2018</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="postamble" class="status">
 <p class="author">Author: Dash Eclipse</p>
-<p class="date">Created: 2020-11-09 Mon 15:22</p>
+<p class="date">Created: 2020-11-09 Mon 21:37</p>
 <p class="validation"><a href="https://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>

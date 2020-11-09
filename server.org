@@ -1,0 +1,93 @@
+#+STARTUP: content
+#+STARTUP: indent
+* Server
+:PROPERTIES:
+:CUSTOM_ID: server
+:END:
+** HTTP (nginx)
+:PROPERTIES:
+:CUSTOM_ID: server_http
+:END:
+#+BEGIN_SRC sh
+  # install docker
+  xi docker docker-compose
+#+END_SRC
+** Git
+:PROPERTIES:
+   :CUSTOM_ID: server_git
+   :END:
+*** [[https://git-scm.com/book/en/v2/Git-on-the-Server-Git-Daemon][Git Daemon]]
+:PROPERTIES:
+    :CUSTOM_ID: server_git_daemon
+    :END:
+#+BEGIN_SRC sh
+  #!/bin/sh
+  # /etc/sv/git-daemon/run
+  exec chpst -u username:username git daemon \
+       --reuseaddr \
+       --base-path=/home/username/git/repo \
+       /home/username/git/repo
+#+END_SRC
+*** [[https://git-scm.com/book/en/v2/Git-on-the-Server-Getting-Git-on-a-Server][Bare Repository]]
+:PROPERTIES:
+    :CUSTOM_ID: server_git_bare-repo
+    :END:
+#+BEGIN_SRC sh
+  cd $HOME/git/repo
+  mkdir reponame.git && cd $_
+  git init --bare --shared=group
+  touch git-daemon-export-ok
+  vim decription owner url
+  # change denyNonFastforwards to false
+  vim config
+#+END_SRC
+*** Static Git Page
+:PROPERTIES:
+:CUSTOM_ID: server_git_static-git-page
+:END:
+Install ~stagit~ and add ~repo/.git/hooks/post-receive~
+** WebDAV (rclone)
+:PROPERTIES:
+:CUSTOM_ID: server_webdav
+:END:
+#+BEGIN_SRC sh
+  #!/bin/sh
+  # /etc/sv/rclone-webdav/run
+  exec rclone serve webdav \
+       --addr domain.tld:1234 \
+       --user username \
+       --pass password \
+       --cert /etc/letsencrypt/live/domain.tld/fullchain.pem \
+       --key /etc/letsencrypt/live/domain.tld/privkey.pem \
+       /home/username/webdav 2>&1
+ #+END_SRC
+** Pastebin (fiche)
+:PROPERTIES:
+   :CUSTOM_ID: server_pastebin
+   :END:
+*/etc/sv/fiche/run*
+#+BEGIN_SRC sh
+  #!/bin/sh
+  exec chpst -u _fiche:_fiche fiche \
+       -S -d domain.tld/pastebin \
+       -o /var/tmp/fiche \
+       -l /var/log/fiche/log
+#+END_SRC
+** IRC Network Bouncer (znc)
+:PROPERTIES:
+:CUSTOM_ID: server_irc
+:END:
+~znc~
+** Music Radio (vlc)
+:PROPERTIES:
+:CUSTOM_ID: server_music-radio
+:END:
+*/etc/sv/vlc-stream/run*
+#+BEGIN_SRC sh
+  #!/bin/sh
+   exec chpst -u username:username cvlc \
+       /home/username/music \
+       ':sout=#http{mux=ogg,dst=:12345/}' ':no-sout-all' ':sout-keep' \
+       --intf \
+       http 1>/dev/null
+#+END_SRC

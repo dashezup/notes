@@ -7,5 +7,7 @@
 
 #+SETUPFILE: org-html-themes/setup/theme-readtheorg-local.setup
 
-#+INCLUDE: "self-hosting.org"
+#+INCLUDE: "server.org"
+#+INCLUDE: "desktop.org"
 #+INCLUDE: "browser.org"
+#+INCLUDE: "movie.org"

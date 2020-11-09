@@ -1,0 +1,180 @@
+#+STARTUP: content
+#+STARTUP: indent
+* Desktop
+:PROPERTIES:
+:CUSTOM_ID: desktop
+:END:
+** Shell (zsh)
+:PROPERTIES:
+:CUSTOM_ID: desktop_shell-zsh
+:END:
+- zsh
+- grml-zsh-config
+- zsh-autosuggestions
+- zsh-completion
+- zsh-syntax-highlighting
+- skim-key-bindings.zsh
+- powerlevel10k
+*Plugins*
+#+BEGIN_SRC sh
+  # $HOME/.zshrc.local
+
+  . /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  . /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+  . /usr/share/zsh/site-functions/skim-key-bindings.zsh
+
+  if [ ! -z ${DISPLAY+x} ] ; then
+          . /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+          . $HOME/.p10k.zsh
+          POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir rbenv vcs)
+          ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=240'
+          #ZSH_HIGHLIGHT_STYLES[suffix-alias]='fg=blue,underline'
+          #ZSH_HIGHLIGHT_STYLES[precommand]='fg=blue,underline'
+          #ZSH_HIGHLIGHT_STYLES[arg0]='fg=blue'
+          #ZSH_HIGHLIGHT_STYLES[comment]='fg=239'
+          ZSH_HIGHLIGHT_STYLES[suffix-alias]=fg=32,underline
+          ZSH_HIGHLIGHT_STYLES[precommand]=fg=32,underline
+          ZSH_HIGHLIGHT_STYLES[arg0]=fg=32 # 26
+          ZSH_HIGHLIGHT_STYLES[single-hyphen-option]='fg=38'
+          ZSH_HIGHLIGHT_STYLES[double-hyphen-option]='fg=38'
+          ZSH_HIGHLIGHT_STYLES[default]='fg=38'
+          ZSH_HIGHLIGHT_STYLES[single-quoted-argument-unclosed]='fg=red'
+          ZSH_HIGHLIGHT_STYLES[double-quoted-argument-unclosed]='fg=red'
+  fi
+#+END_SRC
+*Functions*
+#+BEGIN_SRC sh
+  # $HOME/.zsh.local
+  # wordnet
+  wn() { while true; do dict -d wn $(read -e); done }
+  # memory usage
+  memu() {
+          local CHECK=" $@"
+          [ -z $1 ] || [ "${CHECK#* -}" != "$CHECK" ] && { echo "Usage: memu program [program...]"; return 1; }
+          local PIDS=$(pidof "$@")
+          test -z "$PIDS" && return 0
+          echo "$PIDS" \
+                  | xargs -I{} ps -p "{}" -o size,vsize,rss,cmd \
+                  | awk 'NR==1; NR>1 {print $1"K", $2"Ki", $3"K", $4}' \
+                  | numfmt --header --field 1,3 --from=si --to=si --suffix=B --format %.1f \
+                  | numfmt --header --field 2 --from=iec-i --to=iec-i --suffix=B --format %.1f \
+                  | sort -hk3,3 \
+                  | column -t -R1,2,3 \
+                  | GREP_COLORS='mt=1;94' egrep --color=always '.*SIZE.*VSZ.*RSS.*CMD.*|$' \
+                  | GREP_COLORS='mt=1;32' egrep --color=always "KB|KiB|$" \
+                  | GREP_COLORS='mt=0;33' egrep --color=always 'MB|MiB|$' \
+                  | GREP_COLORS='mt=1;31' egrep --color=always "GB|GiB|$"
+  }
+#+END_SRC
+*Environment variables*
+#+BEGIN_SRC sh
+  # $HOME/.zshenv
+  # http://zsh.sourceforge.net/Guide/zshguide02.html#l24
+  typeset -U path
+  path=(~/.local/bin $path)
+  SRC_GITHUB="$HOME/.local/src/github"
+  PROXYCHAINS_QUIET_MODE=1
+  CLICOLOR_FORCE=1
+  export GPG_TTY=$(tty)
+#+END_SRC
+** Xorg
+:PROPERTIES:
+:CUSTOM_ID: desktop_xorg
+:END:
+- xorg-server
+- xf86-input-libinput
+- xf86-video-intel
+- sx
+- dwm
+- slock
+- st
+
+non-root Xorg
+#+BEGIN_EXAMPLE
+  # /etc/X11/Xwrapper.config
+  needs_root_rights = no
+#+END_EXAMPLE
+*** Keyboard
+:PROPERTIES:
+:CUSTOM_ID: desktop_xorg_keyboard
+:END:
+Programmer Dvorak keyboard layout
+#+BEGIN_EXAMPLE
+  # /etc/X11/xorg.conf.d/00-keyboard.conf
+  Section "InputClass"
+          Identifier "Cherry GmbH G83 (RS 6000) Keyboard"
+          MatchIsKeyboard "on"
+          MatchUSBID "046a:0011"
+          Driver "libinput"
+          Option "XkbLayout" "us"
+          Option "XkbModel" "pc104"
+          Option "XkbVariant" "dvp"
+  EndSection
+#+END_EXAMPLE
+*** Mouse
+:PROPERTIES:
+:CUSTOM_ID: desktop_xorg_mouse
+:END:
+Left-handed mouse
+#+BEGIN_EXAMPLE
+  # /etc/X11/xorg.conf.d/50-mouse.conf
+  Section "InputClass"
+          Identifier "Pixart Imaging, Inc. Optical Mouse"
+          MatchIsPointer "yes"
+          MatchUSBID "093a:2510"
+          Driver "libinput"
+          Option "ButtonMapping" "3 2 1"
+  EndSection
+#+END_EXAMPLE
+*** Monitors
+:PROPERTIES:
+:CUSTOM_ID: desktop_xorg_monitors
+:END:
+Dual-monitor
+#+BEGIN_EXAMPLE
+  # /etc/X11/xorg.conf.d/10-monitor.conf
+  Section "Monitor"
+          Identifier	"VGA1"
+          Option		"Primary" "true"
+          Option		"PreferredMode" "1440x900"
+          Option		"Position" "0 1020"
+  EndSection
+
+  Section "Monitor"
+          Identifier	"HDMI1"
+          Option		"RightOf" "VGA1"
+          Option		"PreferredMode" "1920x1080"
+          Option		"Position" "1440 0"
+          Option		"Rotate" "right"
+          Option		"DPMS" "true"
+          Option		"StandbyTime" "60"
+          Option		"SuspendTime" "120"
+          Option		"OffTime" "180"
+  EndSection
+#+END_EXAMPLE
+
+** Automatic Login
+:PROPERTIES:
+:CUSTOM_ID: desktop_automatic-login
+:END:
+~ln -s /etc/sv/agetty-autologin-tty1 /var/service/agetty-tty1~
+
+*/etc/sv/agetty-autologin-tty1/conf*
+#+BEGIN_SRC sh
+  if [ -x /sbin/agetty -o -x /bin/agetty ]; then
+          # util-linux specific settings
+          if [ "${tty}" = "tty1" ]; then
+                  GETTY_ARGS="--autologin username --noclear"
+          fi
+  fi
+
+  BAUD_RATE=38400
+  TERM_NAME=linux
+#+END_SRC
+
+*$HOME/.zprofile*
+#+BEGIN_SRC sh
+  if [ -z "$DISPLAY" ] && [ "$(fgconsole)" -eq 1 ]; then
+          sx ~/.config/sx/sxrc dwm
+  fi
+#+END_SRC
